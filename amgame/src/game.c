@@ -4,16 +4,16 @@
 
 #define SIDE 16
 
-static int w, h;
+static int scr_w, scr_h;
 static int x, y;
-static int vx = 10, vy = -10;
+static int vx = 10, vy = 10;
 static int board_x;
 
 static void gameinit() {
   AM_GPU_CONFIG_T info = {0};
   ioe_read(AM_GPU_CONFIG, &info);
-  w = info.width;
-  h = info.height;
+  scr_w = info.width;
+  scr_h = info.height;
 }
 
 static void draw_tile(int x, int y, int w, int h, uint32_t color) {
@@ -59,9 +59,9 @@ int game_progress(){
 }
 
 int screen_update(){
-  draw_tile(0, 0, w, h, 0);
+  draw_tile(0, 0, scr_w, scr_h, 0);
   draw_tile(x, y, 3, 3, 0xffffff);
-  draw_tile(board_x, h - 10, 10, 3, 0xffffff);
+  draw_tile(board_x, scr_h - 10, 10, 3, 0xffffff);
   return 0;
 }
 
