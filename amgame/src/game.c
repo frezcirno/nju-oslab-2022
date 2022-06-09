@@ -79,10 +79,14 @@ int gameloop() {
     printf("%d %d\n", uptime(), next_frame);
     while (uptime() < next_frame)
       continue; // 等待一帧的到来
+    printf("%d %d\n", uptime(), next_frame);
     if ((key = readkey()) != AM_KEY_NONE)
       kbd_event(key); // 处理键盘事件
+    printf("%d %d\n", uptime(), next_frame);
     game_progress();          // 处理一帧游戏逻辑，更新物体的位置等
+    printf("%d %d\n", uptime(), next_frame);
     screen_update();          // 重新绘制屏幕
+    printf("%d %d\n", uptime(), next_frame);
     next_frame += 1000000 / FPS; // 计算下一帧的时间
   }
 }
