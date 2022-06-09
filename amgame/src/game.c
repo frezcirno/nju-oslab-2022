@@ -66,18 +66,18 @@ int screen_update(){
 }
 
 int gameloop() {
-  int next_frame = io_read(AM_TIMER_UPTIME).us / 1000;
+  int next_frame = io_read(AM_TIMER_UPTIME).us;
   int key;
   while (1)
   {
     putch('.');
-    while (io_read(AM_TIMER_UPTIME).us / 1000 < next_frame)
+    while (io_read(AM_TIMER_UPTIME).us < next_frame)
       continue; // 等待一帧的到来
     if ((key = readkey()) != AM_KEY_NONE)
       kbd_event(key); // 处理键盘事件
     game_progress();          // 处理一帧游戏逻辑，更新物体的位置等
     screen_update();          // 重新绘制屏幕
-    next_frame += 1000 / FPS; // 计算下一帧的时间
+    next_frame += 1000000 / FPS; // 计算下一帧的时间
   }
 }
 
