@@ -6,7 +6,7 @@
 
 static int w, h;
 static int x, y;
-static int vx, vy;
+static int vx = 10, vy = -10;
 static int board_x;
 
 static void gameinit() {
@@ -72,9 +72,7 @@ int gameloop() {
     while (io_read(AM_TIMER_UPTIME).us / 1000 < next_frame)
       continue; // 等待一帧的到来
     while ((key = readkey()) != AM_KEY_NONE)
-    {
       kbd_event(key); // 处理键盘事件
-    }
     game_progress();          // 处理一帧游戏逻辑，更新物体的位置等
     screen_update();          // 重新绘制屏幕
     next_frame += 1000 / FPS; // 计算下一帧的时间
