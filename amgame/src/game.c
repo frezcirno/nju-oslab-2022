@@ -45,12 +45,12 @@ int readkey() {
 int kbd_event(int key){
   switch (key)
   {
-  case AM_KEY_LEFT:
+  case AM_KEY_A:
     board_x -= 20;
     if (board_x < 0)
       board_x = 0;
     break;
-  case AM_KEY_RIGHT:
+  case AM_KEY_D:
     board_x += 20;
     if (board_x + board_w >= scr_w)
       board_x = scr_w - board_w - 1;
