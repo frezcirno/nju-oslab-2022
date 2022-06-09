@@ -1,12 +1,12 @@
 #include <game.h>
 
-#define FPS 30
+#define FPS 60
 
 #define SIDE 16
 
 static int scr_w, scr_h;
 static int x, y;
-static int vx = 10, vy = 10;
+static int vx = 100, vy = 100;
 static int board_x;
 
 static void gameinit() {
