@@ -65,13 +65,19 @@ int screen_update(){
   return 0;
 }
 
+int uptime()
+{
+  return io_read(AM_TIMER_UPTIME).us;
+}
+
 int gameloop() {
-  int next_frame = io_read(AM_TIMER_UPTIME).us;
+  int next_frame = uptime();
   int key;
   while (1)
   {
     putch('.');
-    while (io_read(AM_TIMER_UPTIME).us < next_frame)
+    printf("%d %d\n", uptime(), next_frame);
+    while (uptime() < next_frame)
       continue; // 等待一帧的到来
     if ((key = readkey()) != AM_KEY_NONE)
       kbd_event(key); // 处理键盘事件
