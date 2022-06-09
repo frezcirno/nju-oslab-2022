@@ -70,6 +70,7 @@ int gameloop() {
   int key;
   while (1)
   {
+    putch('.');
     while (io_read(AM_TIMER_UPTIME).us / 1000 < next_frame)
       continue; // 等待一帧的到来
     if ((key = readkey()) != AM_KEY_NONE)
