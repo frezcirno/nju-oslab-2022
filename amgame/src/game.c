@@ -65,12 +65,11 @@ int screen_update(){
 }
 
 int gameloop() {
-  int next_frame = 0;
+  int next_frame = io_read(AM_TIMER_UPTIME).us / 1000;
   int key;
   while (1)
   {
-    int uptime = io_read(AM_TIMER_UPTIME).us / 1000;
-    while (uptime < next_frame)
+    while (io_read(AM_TIMER_UPTIME).us / 1000 < next_frame)
       continue; // 等待一帧的到来
     while ((key = readkey()) != AM_KEY_NONE)
     {
