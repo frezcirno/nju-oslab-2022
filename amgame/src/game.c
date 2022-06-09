@@ -59,7 +59,10 @@ int game_progress(){
 }
 
 int screen_update(){
-  draw_tile(0, 0, scr_w, scr_h, 0);
+  for (int i = 0; i < scr_w / 16; i++) {
+    for (int j = 0; j < scr_h / 16; j++)
+      draw_tile(i * 16, j * 16, scr_w / 16, scr_h / 16, 0);
+  }
   draw_tile(x, y, 3, 3, 0xffffff);
   draw_tile(board_x, scr_h - 10, 10, 3, 0xffffff);
   return 0;
