@@ -8,6 +8,8 @@ static int scr_w, scr_h;
 static int x, y;
 static int vx = 100, vy = 100;
 static int board_x;
+static const int board_w = 30;
+static const int board_h = 3;
 
 int clear();
 
@@ -44,10 +46,14 @@ int kbd_event(int key){
   switch (key)
   {
   case AM_KEY_LEFT:
-    board_x -= 3;
+    board_x -= 20;
+    if (board_x < 0)
+      board_x = 0;
     break;
   case AM_KEY_RIGHT:
-    board_x += 3;
+    board_x += 20;
+    if (board_x + board_w >= scr_w)
+      board_x = scr_w - board_w - 1;
     break;
   default:
     break;
@@ -90,7 +96,7 @@ int clear(){
 int screen_update(){
   clear();
   draw_tile(x, y, 3, 3, 0xffffff);
-  draw_tile(board_x, scr_h - 10, 10, 3, 0xffffff);
+  draw_tile(board_x, scr_h - 2 * board_h, board_w, board_h, 0xffffff);
   return 0;
 }
 
@@ -104,7 +110,6 @@ int gameloop() {
   int key;
   while (1)
   {
-    putch('.');
     while (uptime() < next_frame)
       continue; // 等待一帧的到来
     if ((key = readkey()) != AM_KEY_NONE)
