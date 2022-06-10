@@ -53,7 +53,7 @@ int collect_proc()
     DIR* dir = opendir("/proc");
 
     proc_table = g_hash_table_new(g_int_hash, g_int_equal);
-    while (dirent = readdir(dir)) {
+    while ((dirent = readdir(dir))) {
         if (!isdigits(dirent->d_name))
             continue;
         sprintf(path, "/proc/%s/stat", dirent->d_name);
@@ -91,19 +91,19 @@ wchar_t* trim(wchar_t* s)
     wchar_t* p;
 
     wchar_t pat[] = L"└─ ";
-    while (p = wcsstr(linebuf, pat))
+    while ((p = wcsstr(linebuf, pat)))
         p[0] = p[1] = L' ';
 
     wchar_t pat2[] = L"├─ ";
-    while (p = wcsstr(linebuf, pat2))
+    while ((p = wcsstr(linebuf, pat2)))
         p[1] = L' ';
 
     wchar_t pat3[] = L"├ ";
-    while (p = wcsstr(linebuf, pat3))
+    while ((p = wcsstr(linebuf, pat3)))
         p[0] = vdash;
 
     wchar_t pat4[] = L"─┬─ ";
-    while (p = wcsstr(linebuf, pat4)) {
+    while ((p = wcsstr(linebuf, pat4))) {
         p[0] = p[2] = L' ';
         p[1] = vdash;
         while (*p != middle) {
@@ -137,7 +137,7 @@ int print_tree(struct proc* p)
         for (int i = 0; i < length + 2; i++)
             pstart[i] = ' ';
 
-        while (c = g_node_next_sibling(c)) {
+        while ((c = g_node_next_sibling(c))) {
             pbuf -= 2;
             if (c == g_node_last_child(&p->n))
                 *pbuf++ = ending;
@@ -195,7 +195,7 @@ int sort_tree(GNode* n, int (*comp)(const void*, const void*))
         do {
             sort_tree(c, comp);
             arr[i++] = c;
-        } while (c = g_node_next_sibling(c));
+        } while ((c = g_node_next_sibling(c)));
 
         qsort(arr, child, sizeof(GNode*), comp);
         arr[0]->prev = NULL;
